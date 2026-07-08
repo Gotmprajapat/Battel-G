@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BattleG</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Splash -->
+
+<div id="splashScreen">
+
+<img src="assets/logo.png" class="logo">
+
+<h1>BattleG</h1>
+
+<p>Play • Win • Earn</p>
+
+</div>
+
+<!-- Login/Register -->
+
+<div id="authScreen" class="hidden">
+
+<div class="authBox">
+
+<img src="assets/logo.png" class="logo">
+
+<h2 id="authTitle">Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Email">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<input
+type="text"
+id="username"
+placeholder="Username"
+class="hidden">
+
+<button id="authBtn">
+Login
+</button>
+
+<p id="switchAuth">
+
+Don't have an account?
+
+<span id="switchBtn">
+
+Register
+
+</span>
+
+</p>
+
+<p id="forgotPassword">
+
+Forgot Password?
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Home -->
+
+<div id="homeScreen" class="hidden">
+
+<header>
+
+<img src="assets/logo.png" class="smallLogo">
+
+<div>
+
+<h2>BattleG</h2>
+
+<p id="walletText">
+
+₹0
+
+</p>
+
+</div>
+
+<button id="profileBtn">
+
+Profile
+
+</button>
+
+</header>
+
+<section class="banner">
+
+<h2>
+
+🔥 Live Tournaments
+
+</h2>
+
+<p>
+
+Play Daily & Win Real Cash
+
+</p>
+
+</section>
+
+<div id="tournamentContainer">
+
+<!-- JS Automatically Load -->
+
+</div>
+
+<h2 class="gameTitle">
+
+Games
+
+</h2>
+
+<div class="gamesGrid">
+
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Tap Challenge</h3>
+
+<button
+onclick="openGame('tap')">
+
+Play
+
+</button>
+
+</div>
+
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Aim Challenge</h3>
+
+<button
+onclick="openGame('aim')">
+
+Play
+
+</button>
+
+</div>
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Memory Match</h3>
+
+<button onclick="openGame('memory')">
+
+Play
+
+</button>
+
+</div>
+
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Reaction Test</h3>
+
+<button onclick="openGame('reaction')">
+
+Play
+
+</button>
+
+</div>
+
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Color Match</h3>
+
+<button onclick="openGame('color')">
+
+Play
+
+</button>
+
+</div>
+
+<div class="gameCard">
+
+<img src="assets/logo.png">
+
+<h3>Speed Tap</h3>
+
+<button onclick="openGame('speed')">
+
+Play
+
+</button>
+
+</div>
+
+</div>
+
+<h2 class="sectionTitle">
+
+🏆 My Tournaments
+
+</h2>
+
+<div id="myTournamentContainer">
+
+<!-- JS Load -->
+
+</div>
+
+</div>
+
+<!-- Profile Screen -->
+
+<div id="profileScreen" class="hidden">
+
+<header>
+
+<button id="backHome">
+
+← Back
+
+</button>
+
+<h2>
+
+Profile
+
+</h2>
+
+</header>
+
+<div class="profileCard">
+
+<img src="assets/logo.png" class="profileLogo">
+
+<h2 id="profileName">
+
+BattleG User
+
+</h2>
+
+<h3 id="profileWallet">
+
+Wallet ₹0
+
+</h3>
+
+</div>
+
+<div class="profileButtons">
+
+<button id="depositBtn">
+
+Deposit
+
+</button>
+
+<button id="withdrawBtn">
+
+Withdraw
+
+</button>
+
+<button id="supportBtn">
+
+Support
+
+</button>
+
+<button id="logoutBtn">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Deposit Popup -->
+
+<div id="depositPopup" class="popup hidden">
+
+<div class="popupBox">
+
+<h2>
+
+Deposit
+
+</h2>
+
+<img src="assets/qr.png" class="qrImage">
+
+<input
+type="number"
+id="depositAmount"
+placeholder="Amount">
+
+<input
+type="text"
+id="utrNumber"
+placeholder="UTR Number">
+
+<button id="submitDeposit">
+
+Submit
+
+</button>
+
+<button class="closePopup">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Withdraw Popup -->
+
+<div id="withdrawPopup" class="popup hidden">
+
+<div class="popupBox">
+
+<h2>
+
+Withdraw
+
+</h2>
+
+<p id="walletBalance">
+
+Wallet ₹0
+
+</p>
+
+<input
+type="number"
+id="withdrawAmount"
+placeholder="Amount">
+
+<input
+type="text"
+id="upiId"
+placeholder="UPI ID">
+
+<button id="submitWithdraw">
+
+Withdraw
+
+</button>
+
+<button class="closePopup">
+
+Close
+
+</button>
+
+</div>
+
+  </div>
+  <!-- Bottom Navigation -->
+
+<nav class="bottomNav">
+
+<button id="navHome">
+
+🏠
+
+<span>Home</span>
+
+</button>
+
+<button id="navTournament">
+
+🏆
+
+<span>Tournaments</span>
+
+</button>
+
+<button id="navGames">
+
+🎮
+
+<span>Games</span>
+
+</button>
+
+<button id="navProfile">
+
+👤
+
+<span>Profile</span>
+
+</button>
+
+</nav>
+
+<!-- Loading -->
+
+<div id="loadingScreen" class="hidden">
+
+<div class="loader"></div>
+
+<p>Please Wait...</p>
+
+</div>
+
+<!-- Toast -->
+
+<div id="toast" class="hidden">
+
+<span id="toastText">
+
+Done
+
+</span>
+
+</div>
+
+<!-- Tournament Card Template -->
+
+<template id="tournamentTemplate">
+
+<div class="tournamentCard">
+
+<h3 class="tGame">
+
+Tap Challenge
+
+</h3>
+
+<p>
+
+Entry :
+
+<span class="tEntry">
+
+₹10
+
+</span>
+
+</p>
+
+<p>
+
+Players :
+
+<span class="tPlayers">
+
+0/20
+
+</span>
+
+</p>
+
+<p>
+
+Prize :
+
+<span class="tPrize">
+
+₹150
+
+</span>
+
+</p>
+
+<p>
+
+Starts In :
+
+<span class="tTime">
+
+00:00:00
+
+</span>
+
+</p>
+
+<button class="joinBtn">
+
+Join
+
+</button>
+
+</div>
+
+</template>
+
+<script type="module" src="firebase.js"></script>
+
+<script type="module" src="app.js"></script>
+
+</body>
+
+</html>
