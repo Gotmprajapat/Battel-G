@@ -99,6 +99,8 @@ tournamentList.appendChild(div);
 
 timer(id,t.startTime);
 
+updateButton(uid,id,t.startTime);
+
 document
 
 .getElementById("btn_"+id)
@@ -130,5 +132,129 @@ return;
 });
 
 alert("Tournament Joined");
+
+      }
+
+// ===============================
+// Tournament Timer
+// ===============================
+
+function timer(id,startTime){
+
+const time=document.getElementById("time_"+id);
+const btn=document.getElementById("btn_"+id);
+
+setInterval(()=>{
+
+const now=Date.now();
+
+const diff=startTime-now;
+
+if(diff>0){
+
+const h=Math.floor(diff/3600000);
+const m=Math.floor((diff%3600000)/60000);
+const s=Math.floor((diff%60000)/1000);
+
+time.innerHTML=`Starts In ${h}:${m}:${s}`;
+btn.innerHTML="WAITING";
+btn.disabled=true;
+
+}else{
+
+const end=startTime+(10*60*1000);
+
+if(now<end){
+
+time.innerHTML="LIVE 🔴";
+btn.innerHTML="PLAY";
+btn.disabled=false;
+
+}else{
+
+time.innerHTML="Finished";
+btn.innerHTML="FINISHED";
+btn.disabled=true;
+
+}
+
+}
+
+},1000);
+
+}
+// ===============================
+// Check Joined Tournament
+// ===============================
+
+async function checkJoined(uid,tournamentId){
+
+const snap=await get(
+ref(rtdb,"joined/"+tournamentId+"/"+uid)
+);
+
+return snap.exists();
+
+}
+
+// ===============================
+// Update Button
+// ===============================
+
+async function updateButton(uid,id,startTime){
+
+const btn=document.getElementById("btn_"+id);
+
+const joined=await checkJoined(uid,id);
+
+const now=Date.now();
+
+const end=startTime+(10*60*1000);
+
+if(!joined){
+
+if(now<startTime){
+
+btn.innerHTML="JOIN";
+
+btn.disabled=false;
+
+}else{
+
+btn.innerHTML="JOIN CLOSED";
+
+btn.disabled=true;
+
+}
+
+return;
+
+}
+
+if(now<startTime){
+
+btn.innerHTML="WAITING";
+
+btn.disabled=true;
+
+}else if(now<end){
+
+btn.innerHTML="PLAY";
+
+btn.disabled=false;
+
+btn.onclick=()=>{
+
+location.href="games/tap/index.html?tournament="+id;
+
+};
+
+}else{
+
+btn.innerHTML="FINISHED";
+
+btn.disabled=true;
+
+}
 
       }
