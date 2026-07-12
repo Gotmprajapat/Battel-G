@@ -1,4 +1,4 @@
-import { auth, rtdb } from "./firebase.js";
+import { auth, rtdb } from "../firebase.js";
 
 import {
 onAuthStateChanged
